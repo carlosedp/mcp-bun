@@ -1,0 +1,35 @@
+# Source files (only dist should be published)
+src/
+examples/
+*.ts
+tsconfig.json
+
+# Development files
+.vscode/
+.git/
+.gitignore
+eslint.config.js
+BUN_CONVERSION_SUMMARY.md
+
+# Build artifacts we don't need
+node_modules/
+*.log
+*.tmp
+*.temp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+*.swp
+*.swo
+
+# Test files (if any)
+test/
+tests/
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
