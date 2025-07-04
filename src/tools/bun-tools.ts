@@ -413,11 +413,12 @@ export function registerBunTools(server: McpServer): void {
       entryPoint: z.string().describe("Entry point file to build"),
       outDir: z
         .string()
-        .optional()
+        .default("dist")
         .describe("Output directory for built files"),
       target: z
         .enum(["browser", "bun", "node"])
         .optional()
+        .default("bun")
         .describe("Build target"),
       minify: z.boolean().optional().describe("Enable minification"),
       sourcemap: z.boolean().optional().describe("Generate source maps"),

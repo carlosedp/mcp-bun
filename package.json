@@ -2,6 +2,33 @@
   "name": "mcp-bun-server",
   "version": "1.0.0",
   "description": "A comprehensive Model Context Protocol (MCP) server optimized for the Bun JavaScript runtime with advanced execution and optimization tools.",
+  "license": "MIT",
+  "author": "Carlos Eduardo de Paula. <carlosedp@gmail.com> (https://carlosedp.com)",
+  "contributors": [
+    {
+      "name": "Carlos Eduardo de Paula",
+      "email": "carlosedp@gmail.com",
+      "url": "https://carlosedp.com"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/carlosedp/mcp-bun/issues"
+  },
+  "homepage": "https://github.com/carlosedp/mcp-bun#readme",
+  "keywords": [
+    "mcp",
+    "bun",
+    "model-context-protocol",
+    "ai",
+    "nodejs",
+    "javascript-runtime",
+    "typescript",
+    "performance",
+    "optimization",
+    "build-tools",
+    "development-tools",
+    "server-management"
+  ],
   "main": "dist/mcp-bun.js",
   "type": "module",
   "bin": {
@@ -26,19 +53,6 @@
     "type": "git",
     "url": "git+https://github.com/carlosedp/mcp-bun.git"
   },
-  "license": "MIT",
-  "author": "Carlos Eduardo de Paula. <carlosedp@gmail.com> (https://carlosedp.com)",
-  "contributors": [
-    {
-      "name": "Carlos Eduardo de Paula",
-      "email": "carlosedp@gmail.com",
-      "url": "https://carlosedp.com"
-    }
-  ],
-  "bugs": {
-    "url": "https://github.com/carlosedp/mcp-bun/issues"
-  },
-  "homepage": "https://github.com/carlosedp/mcp-bun#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.6.0",
     "node-notifier": "^10.0.1",
@@ -52,20 +66,6 @@
     "neostandard": "^0.12.1",
     "typescript": "^5.7.3"
   },
-  "keywords": [
-    "mcp",
-    "bun",
-    "model-context-protocol",
-    "ai",
-    "nodejs",
-    "javascript-runtime",
-    "typescript",
-    "performance",
-    "optimization",
-    "build-tools",
-    "development-tools",
-    "server-management"
-  ],
   "engines": {
     "bun": ">=1.0.0",
     "node": ">=18.0.0"

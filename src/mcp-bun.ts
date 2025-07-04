@@ -27,7 +27,7 @@ async function main() {
   try {
     const transport = new StdioServerTransport();
     await server.connect(transport);
-    console.error("Bun Runner MCP Server running");
+    console.error("Bun Runner MCP Server running...");
   } catch (error) {
     console.error("Error starting server:", error);
     process.exit(1);
