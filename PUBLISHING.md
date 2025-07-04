@@ -1,4 +1,4 @@
-# Publishing Guide for mcp-bun-server
+# Publishing Guide for mcp-bun
 
 ## Prerequisites
 
@@ -66,90 +66,15 @@ After publishing, verify it's available:
 
 ```bash
 # Check if package is available
-npm info mcp-bun-server
+npm info mcp-bun
 
 # Test installation
-npx mcp-bun-server --help
+npx mcp-bun --help
 ```
 
 ## Package Details
 
-- **Package Name**: `mcp-bun-server`
+- **Package Name**: `mcp-bun`
 - **Entry Point**: `dist/mcp-bun.js`
 - **Binary Command**: `mcp-bun`
 - **Runtime**: Node.js (with Bun optimizations)
-
-## Usage After Publication
-
-Users can then use your package in several ways:
-
-### Global Installation
-```bash
-npm install -g mcp-bun-server
-mcp-bun  # Direct command
-```
-
-### npx Usage (No Installation)
-```bash
-npx mcp-bun-server
-```
-
-### MCP Configuration for Users
-
-Users can add this to their MCP client configuration:
-
-```json
-{
-  "mcpServers": {
-    "bun-runner": {
-      "command": "npx",
-      "args": ["mcp-bun-server"],
-      "env": {
-        "DISABLE_NOTIFICATIONS": "true"
-      }
-    }
-  }
-}
-```
-
-Or if installed globally:
-```json
-{
-  "mcpServers": {
-    "bun-runner": {
-      "command": "mcp-bun",
-      "env": {
-        "DISABLE_NOTIFICATIONS": "true"
-      }
-    }
-  }
-}
-```
-
-## Important Notes
-
-1. **Package Name**: I changed the name to `mcp-bun-server` (with hyphen) as `mcp-bun` might be taken
-2. **Version**: Started at 1.0.0 to indicate it's production-ready
-3. **Build**: The `prepublishOnly` script ensures the package is built before publishing
-4. **Files**: Only necessary files are included (dist/, README.md, LICENSE)
-
-## Troubleshooting
-
-### If Package Name is Taken
-If `mcp-bun-server` is already taken, consider these alternatives:
-- `@carlosedp/mcp-bun`
-- `mcp-bun-runtime`
-- `bun-mcp-server`
-- `mcp-bun-tools`
-
-### Testing Before Publishing
-```bash
-# Install locally to test
-npm install -g .
-
-# Test the command
-mcp-bun
-
-# Uninstall after testing
-npm uninstall -g mcp-bun-server
-```

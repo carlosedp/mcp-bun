@@ -5,7 +5,7 @@
 
 A comprehensive Model Context Protocol (MCP) server implementation optimized for the Bun JavaScript runtime. This server provides AI assistants with powerful tools to execute, optimize, and manage JavaScript/TypeScript projects using Bun's high-performance runtime.
 
-**🔄 Runtime Compatibility**: The server automatically detects available runtimes and gracefully falls back to Node.js/npm when Bun is not available, ensuring maximum compatibility across different environments.
+**🔄 Runtime Compatibility**: The server requires nodejs to be installed for the mcp server and bun to be installed so the commands can be executed.
 
 ## Features
 
@@ -47,70 +47,72 @@ A comprehensive Model Context Protocol (MCP) server implementation optimized for
 - [Bun](https://bun.sh/) v1.0.0 or later (recommended)
 - Node.js v18.0.0 or later (for compatibility)
 
-### Installation
+For MacOS/Linux users, install Bun using the instructions on the [Bun website](https://bun.sh/docs/installation#macos-and-linux).
 
-#### Option 1: Install Globally (Recommended)
+For Windows, the installation depends if you develope with WSL2 or not:
 
-```bash
-npm install -g mcp-bun-server
-```
-
-#### Option 2: Use with npx (No Installation Required)
-
-```bash
-npx mcp-bun-server
-```
-
-#### Option 3: Install from Source
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/carlosedp/mcp-bun.git
-cd mcp-bun
-```
-
-1. Install dependencies:
-
-```bash
-bun install
-```
-
-1. Build the project:
-
-```bash
-bun run build
-```
+- For native Windows development, install Bun using the [Windows installer](https://bun.sh/docs/installation#windows).
+- If you develop with WSL2, install Bun in your WSL2 environment using the [Linux installation instructions](https://bun.sh/docs/installation#macos-and-linux).
 
 ### Configuration
 
-#### For Global Installation
+#### On VSCode MCP Client
 
-Add to your MCP client configuration:
+For quick installation, use one of the one-click install buttons below...
+
+[![Install with UV in VS Code](https://img.shields.io/badge/VS_Code-UV-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=bun&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22mcp-bun@latest%22%5D%7D) [![Install with UV in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-UV-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=bun&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22mcp-bun@latest%22%5D%7D&quality=insiders)
+
+Or use the configs below.
+
+If using globally, add the following to your MCP client configuration on `settings.json`:
 
 ```json
 {
-  "mcpServers": {
-    "bun-runner": {
-      "command": "mcp-bun",
-      "env": {
-        "DISABLE_NOTIFICATIONS": "true"
+  ...
+  "mcp": {
+    "servers": {
+      "bun": {
+        "command": "npx",
+        "args": ["-y", "mcp-bun@latest"],
+        "env": {
+          "DISABLE_NOTIFICATIONS": "true"
+        }
       }
     }
   }
 }
 ```
 
-#### For npx Usage
+On Windows, **this doesn't work properly when using WSL2** if your project lives in the WSL2 filesystem and you run VSCode natively on Windows. This happens because the MCP server runs on Windows and the Bun commands are executed in the WSL2 environment, which can lead to path issues.
+
+In this case, **configure the MCP server in the project workspace configuration** file which makes the MCP server run in the WSL2 environment and execute the Bun commands there.
+
+Create a file named `.vscode/mcp.json` in your project root with the following content:
+
+```json
+{
+  "servers": {
+    "bun": {
+      "command": "npx",
+      "args": ["-y", "mcp-bun@latest"],
+      "env": {
+        "DISABLE_NOTIFICATIONS": "true"
+      }
+    }
+```
+
+#### On Claude Desktop
+
+Configure your Claude Desktop MCP client with the following:
 
 ```json
 {
   "mcpServers": {
-    "bun-runner": {
+    "node-runner": {
       "command": "npx",
-      "args": ["mcp-bun-server"],
+      "args": ["-y", "mcp-bun@latest"],
       "env": {
-        "DISABLE_NOTIFICATIONS": "true"
+        "DISABLE_NOTIFICATIONS": "true",  // Optional: disable permission prompts
       }
     }
   }
@@ -119,31 +121,35 @@ Add to your MCP client configuration:
 
 #### For Development/Local Installation
 
+Clone the repository to your local machine, install dependencies, and build the project:
+
+```bash
+git clone https://github.com/carlosedp/mcp-bun.git
+cd mcp-bun
+bun install
+bun run build
+```
+
+Then configure your MCP client to use the local build:
+
 ```json
 {
-  "mcpServers": {
-    "bun-runner": {
-      "command": "bun",
-      "args": ["path/to/mcp-bun/dist/mcp-bun.js"],
+  "servers": {
+    "bun-dev": {
+      "command": "node",
+      "args": ["/home/user/mcp-bun/dist/mcp-bun.js"],
       "env": {
         "DISABLE_NOTIFICATIONS": "true"
       }
-    }
+    },
   }
 }
 ```
 
-For Node.js compatibility:
+For testing there's also the MCP Inspector available, which allows you to run the server with Bun and inspect the commands being executed:
 
-```json
-{
-  "mcpServers": {
-    "bun-runner": {
-      "command": "node",
-      "args": ["path/to/mcp-bun/dist/mcp-bun.js"]
-    }
-  }
-}
+```bash
+bun run dev
 ```
 
 ## Available Tools
@@ -163,16 +169,6 @@ Execute JavaScript/TypeScript files with Bun runtime optimizations.
 - `cwd`: Working directory
 - `timeout`: Execution timeout
 
-**Example:**
-
-```javascript
-run-bun-script-file({
-  scriptPath: "/path/to/app.ts",
-  bunArgs: ["--smol"],
-  args: ["--port", "3000"],
-  cwd: "/path/to/project"
-});
-```
 
 #### `run-bun-eval`
 
@@ -186,15 +182,6 @@ Execute JavaScript/TypeScript code directly with Bun eval.
 - `stdin`: Standard input
 - `timeout`: Execution timeout
 
-**Example:**
-
-```javascript
-run-bun-eval({
-  code: "console.log('Hello from Bun!'); console.log(Bun.version);",
-  bunArgs: ["--smol"]
-});
-```
-
 ### Package Management
 
 #### `run-bun-install`
@@ -205,15 +192,6 @@ Install dependencies using Bun's fast package manager.
 
 - `packageDir`: Directory containing package.json
 - `dependency`: Specific package to install (optional)
-
-**Example:**
-
-```javascript
-run-bun-install({
-  packageDir: "/path/to/project",
-  dependency: "express"
-});
-```
 
 #### `run-bun-script`
 
@@ -240,18 +218,6 @@ Build and optimize projects with Bun's bundler.
 - `sourcemap`: Generate source maps
 - `splitting`: Enable code splitting
 
-**Example:**
-
-```javascript
-run-bun-build({
-  entryPoint: "src/index.ts",
-  outDir: "dist",
-  target: "bun",
-  minify: true,
-  sourcemap: true
-});
-```
-
 #### `run-bun-test`
 
 Execute tests with Bun's fast test runner.
@@ -263,16 +229,6 @@ Execute tests with Bun's fast test runner.
 - `watch`: Enable watch mode
 - `bail`: Stop after N failures
 - `timeout`: Test timeout
-
-**Example:**
-
-```javascript
-run-bun-test({
-  testPath: "tests/",
-  coverage: true,
-  timeout: 30000
-});
-```
 
 ### Performance Analysis
 
@@ -286,20 +242,6 @@ Comprehensive project performance analysis.
 - `entryPoint`: Entry point to analyze
 - `options`: Analysis options (bundle, dependencies, runtime)
 
-**Example:**
-
-```javascript
-analyze-bun-performance({
-  projectDir: "/path/to/project",
-  entryPoint: "src/index.ts",
-  options: {
-    bundle: true,
-    dependencies: true,
-    runtime: true
-  }
-});
-```
-
 #### `benchmark-bun-script`
 
 Benchmark script performance with different optimization flags.
@@ -309,16 +251,6 @@ Benchmark script performance with different optimization flags.
 - `scriptPath`: Script to benchmark
 - `iterations`: Number of test runs
 - `warmup`: Warmup runs
-
-**Example:**
-
-```javascript
-benchmark-bun-script({
-  scriptPath: "/path/to/script.js",
-  iterations: 10,
-  warmup: 2
-});
-```
 
 ### Server Management
 
@@ -332,20 +264,6 @@ Start optimized Bun servers with hot reloading and watch capabilities.
 - `cwd`: Working directory
 - `bunArgs`: Bun flags
 - `optimizations`: Hot reload, watch, smol mode options
-
-**Example:**
-
-```javascript
-start-bun-server({
-  scriptPath: "/path/to/server.ts",
-  cwd: "/path/to/project",
-  optimizations: {
-    hot: true,
-    watch: true,
-    smol: false
-  }
-});
-```
 
 #### Additional Server Tools
 
@@ -376,113 +294,6 @@ Use the `--smol` flag for memory-constrained environments:
 
 ```bash
 bun --smol your-script.js
-```
-
-### Development Workflow
-
-Enable hot reloading for development:
-
-```bash
-bun --hot --watch your-server.js
-```
-
-### Production Builds
-
-Optimize for production with minification:
-
-```bash
-bun build src/index.ts --outdir dist --minify --target bun
-```
-
-### Testing Performance
-
-Run tests with coverage:
-
-```bash
-bun test --coverage
-```
-
-## Advanced Examples
-
-### Server with Hot Reloading
-
-```javascript
-start-bun-server({
-  scriptPath: "src/server.ts",
-  cwd: "/path/to/project",
-  optimizations: {
-    hot: true,
-    watch: true
-  }
-});
-```
-
-### Performance Analysis Workflow
-
-```javascript
-// 1. Analyze project performance
-analyze-bun-performance({
-  projectDir: "/path/to/project",
-  options: { bundle: true, dependencies: true, runtime: true }
-});
-
-// 2. Benchmark critical scripts
-benchmark-bun-script({
-  scriptPath: "src/critical-function.js",
-  iterations: 100
-});
-
-// 3. Build optimized version
-run-bun-build({
-  entryPoint: "src/index.ts",
-  target: "bun",
-  minify: true
-});
-```
-
-### Development to Production Pipeline
-
-```javascript
-// 1. Install dependencies
-run-bun-install({ packageDir: "/path/to/project" });
-
-// 2. Run tests
-run-bun-test({ coverage: true });
-
-// 3. Build for production
-run-bun-build({
-  entryPoint: "src/index.ts",
-  outDir: "dist",
-  target: "bun",
-  minify: true,
-  splitting: true
-});
-
-// 4. Start production server
-start-bun-server({
-  scriptPath: "dist/index.js",
-  optimizations: { smol: true }
-});
-```
-
-## Resources
-
-### bun-scripts
-
-Lists all available scripts in a package.json file.
-
-URI template: `bun-scripts://{directory}`
-
-Example usage: Ask "Show me the available scripts in this project"
-
-## Environment Variables
-
-### DISABLE_NOTIFICATIONS
-
-Set to `"true"` to automatically approve all permission requests:
-
-```bash
-DISABLE_NOTIFICATIONS=true bun dist/mcp-bun.js
 ```
 
 ## Security Considerations
@@ -531,4 +342,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Built on the [Model Context Protocol](https://modelcontextprotocol.io/)
 - Optimized for [Bun](https://bun.sh/) runtime
-- Compatible with Node.js for broader compatibility
+- Heavily inspired by the [MCP Node.js server](https://github.com/platformatic/mcp-node)
