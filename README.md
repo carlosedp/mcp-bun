@@ -2,6 +2,8 @@
 
 [![Bun Version](https://img.shields.io/badge/bun-%3E%3D1.0.0-orange.svg)](https://bun.sh/)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
+[![NPM Version](https://img.shields.io/npm/v/mcp-bun)](https://www.npmjs.com/package/mcp-bun)
+
 
 A comprehensive Model Context Protocol (MCP) server implementation optimized for the Bun JavaScript runtime. This server provides AI assistants with powerful tools to execute, optimize, and manage JavaScript/TypeScript projects using Bun's high-performance runtime.
 
