@@ -1,6 +1,6 @@
 {
   "name": "mcp-bun",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A comprehensive Model Context Protocol (MCP) server optimized for the Bun JavaScript runtime with advanced execution and optimization tools.",
   "license": "MIT",
   "author": "Carlos Eduardo de Paula. <carlosedp@gmail.com> (https://carlosedp.com)",
