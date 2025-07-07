@@ -42,6 +42,7 @@
   "scripts": {
     "build": "bun run tsc",
     "build:node": "tsc",
+    "dist": "bun build src/mcp-bun.ts --outdir dist --target bun --minify",
     "prepublishOnly": "bun run build:node",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",

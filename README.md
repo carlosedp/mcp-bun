@@ -9,6 +9,8 @@ A comprehensive Model Context Protocol (MCP) server implementation optimized for
 
 **🔄 Runtime Compatibility**: The server requires nodejs to be installed for the mcp server and bun to be installed so the commands can be executed.
 
+![sample usage](sample_usage.png)
+
 ## Features
 
 ### 🚀 Bun-Optimized Execution

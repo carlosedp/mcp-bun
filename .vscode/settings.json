@@ -1,12 +1,4 @@
 {
-  "files.exclude": {
-    "**/node_modules": true,
-    "**/.git": true,
-    "**/.vscode": true,
-    "**/dist": true,
-    "**/build": true,
-    "**/coverage": true
-  },
   "search.exclude": {
     "**/node_modules": true,
     "**/.git": true,

@@ -1,12 +1,5 @@
 {
   "servers": {
-    "bun-dev": {
-      "command": "bun",
-      "args": ["/home/carlosedp/repos/mcp-bun/dist/mcp-bun.js"],
-      "env": {
-        "DISABLE_NOTIFICATIONS": "true"
-      }
-    },
     "bun": {
       "command": "bunx",
       "args": ["-y", "mcp-bun@latest"],
