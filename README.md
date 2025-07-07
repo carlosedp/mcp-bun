@@ -74,7 +74,7 @@ If using globally, add the following to your MCP client configuration on `settin
   "mcp": {
     "servers": {
       "bun": {
-        "command": "npx",
+        "command": "bunx",
         "args": ["-y", "mcp-bun@latest"],
         "env": {
           "DISABLE_NOTIFICATIONS": "true"
@@ -95,7 +95,7 @@ Create a file named `.vscode/mcp.json` in your project root with the following c
 {
   "servers": {
     "bun": {
-      "command": "npx",
+      "command": "bunx",
       "args": ["-y", "mcp-bun@latest"],
       "env": {
         "DISABLE_NOTIFICATIONS": "true"
@@ -110,8 +110,8 @@ Configure your Claude Desktop MCP client with the following:
 ```json
 {
   "mcpServers": {
-    "node-runner": {
-      "command": "npx",
+    "bun": {
+      "command": "bunx",
       "args": ["-y", "mcp-bun@latest"],
       "env": {
         "DISABLE_NOTIFICATIONS": "true",  // Optional: disable permission prompts
@@ -138,7 +138,7 @@ Then configure your MCP client to use the local build:
 {
   "servers": {
     "bun-dev": {
-      "command": "node",
+      "command": "bun",
       "args": ["/home/user/mcp-bun/dist/mcp-bun.js"],
       "env": {
         "DISABLE_NOTIFICATIONS": "true"

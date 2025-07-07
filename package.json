@@ -42,11 +42,10 @@
   "scripts": {
     "build": "bun run tsc",
     "build:node": "tsc",
-    "prepublishOnly": "npm run build:node",
+    "prepublishOnly": "bun run build:node",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "dev": "bun run build && bunx @modelcontextprotocol/inspector bun dist/mcp-bun.js",
-    "dev:node": "npm run build:node && npx @modelcontextprotocol/inspector node dist/mcp-bun.js",
     "test": "echo \"No tests specified\" && exit 0"
   },
   "repository": {
