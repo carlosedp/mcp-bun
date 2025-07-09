@@ -7,7 +7,7 @@
 
 A comprehensive Model Context Protocol (MCP) server implementation optimized for the Bun JavaScript runtime. This server provides AI assistants with powerful tools to execute, optimize, and manage JavaScript/TypeScript projects using Bun's high-performance runtime.
 
-**🔄 Runtime Compatibility**: The server requires nodejs to be installed for the mcp server and bun to be installed so the commands can be executed.
+**🔄 Runtime Compatibility**: The server requires bun to be installed in the environment the MCP server will run (Windows native, Windows WSL2, etc). See more installation details below.
 
 ![sample usage](sample_usage.png)
 

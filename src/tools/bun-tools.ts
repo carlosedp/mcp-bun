@@ -528,7 +528,7 @@ export function registerBunTools(server: McpServer): void {
   // Tool to run Bun test with optimizations
   server.tool(
     "run-bun-test",
-    "Execute tests with Bun's fast test runner",
+    "Execute tests with Bun's internal fast test runner",
     {
       testPath: z
         .string()
